@@ -1,10 +1,10 @@
 <template>
   <div class="iq-sidebar">
     <div class="iq-sidebar-logo d-flex justify-content-between">
-      <a href="index.html" class="header-logo">
+      <a href="#" class="header-logo">
         <img src="/images/logo.png" class="img-fluid rounded-normal" alt="" />
         <div class="logo-title">
-          <span class="text-primary text-uppercase">Booksto</span>
+          <span class="text-primary text-uppercase">Admin Books</span>
         </div>
       </a>
       <div class="iq-menu-bt-sidebar">

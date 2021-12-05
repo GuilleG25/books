@@ -7,14 +7,14 @@
             <div class="main-circle"><i class="las la-bars"></i></div>
           </div>
           <div class="iq-navbar-logo d-flex justify-content-between">
-            <a href="index.html" class="header-logo">
+            <a href="#" class="header-logo">
               <img
                 src="/images/logo.png"
                 class="img-fluid rounded-normal"
                 alt=""
               />
               <div class="logo-title">
-                <span class="text-primary text-uppercase">Booksto</span>
+                <span class="text-primary text-uppercase">Admin Books</span>
               </div>
             </a>
           </div>
@@ -74,79 +74,29 @@
                       <h5 class="mb-0 text-white">
                         All Notifications<small
                           class="badge badge-light float-right pt-1"
-                          >4</small
+                          >1</small
                         >
                       </h5>
                     </div>
-                    <a href="#" class="iq-sub-card">
+                    <a
+                      href="https://guillermodaniel.xyz"
+                      target="_blank"
+                      class="iq-sub-card"
+                    >
                       <div class="media align-items-center">
                         <div class="">
                           <img
                             class="avatar-40 rounded"
-                            src="/images/user/01.jpg"
+                            src="https://eu.ui-avatars.com/api/?name=Guillermo"
                             alt=""
                           />
                         </div>
                         <div class="media-body ml-3">
-                          <h6 class="mb-0">Emma Watson Barry</h6>
+                          <h6 class="mb-0">Guillermo Daniel</h6>
                           <small class="float-right font-size-12"
                             >Just Now</small
                           >
-                          <p class="mb-0">95 MB</p>
-                        </div>
-                      </div>
-                    </a>
-                    <a href="#" class="iq-sub-card">
-                      <div class="media align-items-center">
-                        <div class="">
-                          <img
-                            class="avatar-40 rounded"
-                            src="/images/user/02.jpg"
-                            alt=""
-                          />
-                        </div>
-                        <div class="media-body ml-3">
-                          <h6 class="mb-0">New customer is join</h6>
-                          <small class="float-right font-size-12"
-                            >5 days ago</small
-                          >
-                          <p class="mb-0">Cyst Barry</p>
-                        </div>
-                      </div>
-                    </a>
-                    <a href="#" class="iq-sub-card">
-                      <div class="media align-items-center">
-                        <div class="">
-                          <img
-                            class="avatar-40 rounded"
-                            src="/images/user/03.jpg"
-                            alt=""
-                          />
-                        </div>
-                        <div class="media-body ml-3">
-                          <h6 class="mb-0">Two customer is left</h6>
-                          <small class="float-right font-size-12"
-                            >2 days ago</small
-                          >
-                          <p class="mb-0">Cyst Barry</p>
-                        </div>
-                      </div>
-                    </a>
-                    <a href="#" class="iq-sub-card">
-                      <div class="media align-items-center">
-                        <div class="">
-                          <img
-                            class="avatar-40 rounded"
-                            src="/images/user/04.jpg"
-                            alt=""
-                          />
-                        </div>
-                        <div class="media-body ml-3">
-                          <h6 class="mb-0">New Mail from Fenny</h6>
-                          <small class="float-right font-size-12"
-                            >3 days ago</small
-                          >
-                          <p class="mb-0">Cyst Barry</p>
+                          <p class="mb-0">Visit my website</p>
                         </div>
                       </div>
                     </a>
