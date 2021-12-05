@@ -36,7 +36,9 @@
                   <label>Book Category:</label>
                   <select
                     class="form-control"
-                    id="exampleFormControlSelect1"
+                    :class="{
+                      'not-valid': validation.hasError('book.category'),
+                    }"
                     v-model="book.category"
                   >
                     <option selected="" disabled="">Book Category</option>
@@ -48,12 +50,20 @@
                       {{ item.name }}
                     </option>
                   </select>
+                  <div
+                    v-if="validation.hasError('book.category')"
+                    class="invalid-feedback"
+                  >
+                    is {{ validation.firstError('book.category') }}
+                  </div>
                 </div>
                 <div class="form-group">
                   <label>Book Author:</label>
                   <select
                     class="form-control"
-                    id="exampleFormControlSelect2"
+                    :class="{
+                      'not-valid': validation.hasError('book.author'),
+                    }"
                     v-model="book.author"
                   >
                     <option selected="" disabled="">Book Author</option>
@@ -65,6 +75,12 @@
                       {{ item.name }}
                     </option>
                   </select>
+                  <div
+                    v-if="validation.hasError('book.author')"
+                    class="invalid-feedback"
+                  >
+                    is {{ validation.firstError('book.author') }}
+                  </div>
                 </div>
                 <div class="form-group">
                   <label>Book url photo:</label>
@@ -87,7 +103,20 @@
                 </div>
                 <div class="form-group">
                   <label>Book Description:</label>
-                  <textarea class="form-control" rows="4"></textarea>
+                  <textarea
+                    class="form-control"
+                    rows="4"
+                    :class="{
+                      'not-valid': validation.hasError('book.description'),
+                    }"
+                    v-model="book.description"
+                  ></textarea>
+                  <div
+                    v-if="validation.hasError('book.description')"
+                    class="invalid-feedback"
+                  >
+                    is {{ validation.firstError('book.description') }}
+                  </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>
                 <button type="button" @click="reset" class="btn btn-danger">
@@ -172,12 +201,12 @@ export default {
         if (success) {
           this.$nuxt.$loading.start()
           const that = this
-          this.$authors
-            .addData(this.author)
-            .then((author) => {
+          this.$books
+            .addData(this.book)
+            .then((book) => {
               that.$nuxt.$loading.finish()
               that.reset()
-              that.$toast.success('Registered author')
+              that.$toast.success('Registered book')
             })
             .catch((error) => {
               that.$toast.error(error)
@@ -190,7 +219,8 @@ export default {
       this.author = {
         name: '',
         photo: '',
-        email: '',
+        category: '',
+        author: '',
         description: '',
       }
     },
