@@ -42,6 +42,11 @@ export default {
         rel: 'stylesheet',
         type: 'text/css',
       },
+      {
+        href: `https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.15.7/theme-chalk/index.min.css`,
+        rel: 'stylesheet',
+        type: 'text/css',
+      },
     ],
     script: [
       { src: `${BASE_APP}js/jquery.min.js` },
@@ -84,6 +89,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/methods-firebase',
+    '@/plugins/element-ui',
     { src: '@/plugins/simple-validator.js', ssr: false },
   ],
 

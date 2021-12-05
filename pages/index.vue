@@ -370,8 +370,6 @@
 </template>
 
 <script>
-import Axios from 'axios'
-
 export default {
   mounted() {
     jQuery('.slick-slider').slick({
@@ -541,69 +539,6 @@ export default {
         },
       ],
     })
-  },
-  methods: {
-    async addData() {
-      this.$firebaseBooks
-        .addData('authors', {
-          uid: 1,
-          firstname: 'Guillermo',
-          lastname: 'Daniel',
-        })
-        .then((author) => {
-          console.log(author)
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-    },
-    async updateData() {
-      this.$firebaseBooks
-        .update('authors', 'YY94ZgwNDUm3HjOURwRS', {
-          firstname: 'Jose',
-        })
-        .then(() => {
-          console.log('author update')
-        })
-        .catch((error) => {
-          console.error('Error update: ', error)
-        })
-    },
-    getData() {
-      const db = this.$fire.firestore
-      const authors = db
-        .collection('authors')
-        .where('uid', '==', 1)
-        .get()
-        .then((author) => {
-          author.forEach((doc) => {
-            console.log(doc.id, ' => ', doc.data())
-          })
-        })
-        .catch((error) => {
-          console.error('Error adding document: ', error)
-        })
-    },
-    async getAll() {
-      this.$firebaseBooks
-        .getAll('authors')
-        .then((authors) => {
-          console.log(authors)
-        })
-        .catch((error) => {
-          console.error('Error getAll: ', error)
-        })
-    },
-    deleteData() {
-      this.$firebaseBooks
-        .delete('authors', 'KT3srMOb7RBoiglpQWzp')
-        .then(() => {
-          console.log('author delete')
-        })
-        .catch((error) => {
-          console.error('Error getAll: ', error)
-        })
-    },
   },
 }
 </script>

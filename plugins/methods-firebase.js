@@ -1,7 +1,10 @@
-import { fireService } from './definition/firebase.service.js'
+import { authorservice } from './definition/authors.service.js'
+import { categoryservice } from './definition/categories.service.js'
 
 export default ({ app }, inject) => {
-  const firebase = new fireService(app)
+  const authorsFire = new authorservice(app)
+  const categoriesFire = new categoryservice(app)
 
-  inject('firebaseBooks', firebase)
+  inject('authors', authorsFire)
+  inject('categories', categoriesFire)
 }

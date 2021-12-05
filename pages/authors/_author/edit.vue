@@ -7,12 +7,12 @@
           <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
               <div class="iq-header-title">
-                <h4 class="card-title">Add Author</h4>
+                <h4 class="card-title">Edit Author</h4>
               </div>
             </div>
             <div class="iq-card-body">
               <form
-                v-on:submit.prevent="add"
+                v-on:submit.prevent="update"
                 class="needs-validation was-validated"
               >
                 <div class="form-group">
@@ -87,7 +87,7 @@
                     {{ validation.firstError('author.description') }}
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Save</button>
                 <button type="button" @click="reset" class="btn btn-danger">
                   Reset
                 </button>
@@ -127,24 +127,36 @@ export default {
       return Validator.value(value).required()
     },
   },
-
+  mounted() {
+    this.getData()
+  },
   methods: {
-    add(event) {
+    async getData() {
+      const that = this
+      this.$authors
+        .getData(this.$route.params.author)
+        .then((author) => {
+          that.author = author.data()
+        })
+        .catch((error) => {
+          console.error('Error getData: ', error)
+        })
+    },
+    update(event) {
       event.preventDefault()
       this.$validate().then((success) => {
         if (success) {
           this.$nuxt.$loading.start()
           const that = this
           this.$authors
-            .addData(this.author)
-            .then((author) => {
+            .update(this.$route.params.author, this.author)
+            .then(() => {
               that.$nuxt.$loading.finish()
-              that.reset()
-              that.$toast.success('Registered author')
+              that.$toast.success('Update author')
             })
             .catch((error) => {
               that.$toast.error(error)
-              console.error(error)
+              console.error('Error update: ', error)
             })
         }
       })

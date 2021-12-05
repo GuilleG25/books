@@ -34,7 +34,9 @@
               class="iq-waves-effect"
               data-toggle="collapse"
               :aria-expanded="
-                $route.name.split('-')[0] === 'authors' ? 'true' : 'false'
+                $route.name && $route.name.split('-')[0] === 'authors'
+                  ? 'true'
+                  : 'false'
               "
               ><span class="ripple rippleEffect"></span
               ><i class="las la-user-tie iq-arrow-left"></i><span>Author</span
@@ -43,7 +45,9 @@
             <ul
               id="authorinfo"
               class="iq-submenu collapse"
-              :class="{ show: $route.name.split('-')[0] === 'authors' }"
+              :class="{
+                show: $route.name && $route.name.split('-')[0] === 'authors',
+              }"
               data-parent="#iq-sidebar-toggle"
               style=""
             >
@@ -69,7 +73,9 @@
               class="iq-waves-effect"
               data-toggle="collapse"
               :aria-expanded="
-                $route.name.split('-')[0] === 'books' ? 'true' : 'false'
+                $route.name && $route.name.split('-')[0] === 'books'
+                  ? 'true'
+                  : 'false'
               "
               ><span class="ripple rippleEffect"></span
               ><i class="ri-file-pdf-line"></i><span>Books</span
@@ -78,7 +84,9 @@
             <ul
               id="bookinfo"
               class="iq-submenu collapse"
-              :class="{ show: $route.name.split('-')[0] === 'books' }"
+              :class="{
+                show: $route.name && $route.name.split('-')[0] === 'books',
+              }"
               data-parent="#iq-sidebar-toggle"
               style=""
             >
