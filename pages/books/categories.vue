@@ -50,7 +50,8 @@
                             data-placement="top"
                             title=""
                             data-original-title="Edit"
-                            href="admin-add-category.html"
+                            href="javascript:void(0)"
+                            @click="getData(item)"
                             ><i class="ri-pencil-line"></i
                           ></a>
                           <a
@@ -96,10 +97,7 @@
           </div>
           <div class="modal-body">
             <div class="iq-card-body">
-              <form
-                v-on:submit.prevent="add"
-                class="needs-validation was-validated"
-              >
+              <form class="needs-validation was-validated">
                 <div class="form-group">
                   <label>Category Name:</label>
                   <input
@@ -140,8 +138,21 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button @click="add" class="btn btn-primary" data-dismiss="modal">
+            <button
+              v-if="!edit"
+              @click="add"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
               Add
+            </button>
+            <button
+              v-if="edit"
+              @click="update"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
+              Save
             </button>
             <button type="button" @click="reset" class="btn btn-danger">
               Reset
@@ -158,6 +169,8 @@ import { Validator } from 'simple-vue-validator'
 export default {
   data() {
     return {
+      edit: false,
+      categoryId: null,
       category: {
         name: '',
         description: '',
@@ -235,6 +248,32 @@ export default {
         .catch(() => {
           this.$toast.info('Delete canceled')
         })
+    },
+    async getData(item) {
+      this.category.name = item.name
+      this.category.description = item.description
+      this.categoryId = item.id
+      this.edit = true
+      $('.modal').modal('show')
+    },
+    update(event) {
+      event.preventDefault()
+      this.$validate().then((success) => {
+        if (success) {
+          this.$nuxt.$loading.start()
+          const that = this
+          this.$categories
+            .update(this.categoryId, this.category)
+            .then(() => {
+              that.$nuxt.$loading.finish()
+              that.$toast.success('Update category')
+            })
+            .catch((error) => {
+              that.$toast.error(error)
+              console.error('Error update: ', error)
+            })
+        }
+      })
     },
     reset() {
       this.category = {
