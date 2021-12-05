@@ -11,26 +11,48 @@
                 <p class="text-center text-white">
                   Enter your email address and password to access admin panel.
                 </p>
-                <form class="mt-4 form-text">
+                <form class="mt-4 form-text needs-validation was-validated">
                   <div class="form-group">
-                    <label for="exampleInputEmail2">Email address</label>
+                    <label for="exampleInputEmail1">Email address</label>
                     <input
                       type="email"
-                      class="form-control mb-0"
-                      id="exampleInputEmail2"
+                      class="form-control"
+                      :class="{
+                        'not-valid': validation.hasError('auth.email'),
+                      }"
+                      id="exampleInputEmail1"
                       placeholder="Enter email"
+                      label="Password"
+                      name="email"
                       v-model="auth.email"
                     />
+                    <div
+                      v-if="validation.hasError('auth.email')"
+                      class="invalid-feedback"
+                    >
+                      Email is {{ validation.firstError('auth.email') }}
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
                     <input
                       type="password"
-                      class="form-control mb-0"
+                      class="mb-0 form-control"
+                      :class="{
+                        'not-valid': validation.hasError('auth.password'),
+                      }"
                       id="exampleInputPassword1"
                       placeholder="Password"
+                      label="Password"
+                      name="password"
                       v-model="auth.password"
                     />
+                    <div
+                      v-if="validation.hasError('auth.password')"
+                      class="invalid-feedback"
+                    >
+                      Password is {{ validation.firstError('auth.password') }}
+                    </div>
                   </div>
                   <!-- <div class="d-inline-block w-100">
                     <div
@@ -76,6 +98,7 @@
 </template>
 
 <script>
+import { Validator } from 'simple-vue-validator'
 export default {
   layout: 'empty',
   data() {
@@ -88,27 +111,41 @@ export default {
       },
     }
   },
+  validators: {
+    'auth.email'(value) {
+      return Validator.value(value).required().email()
+    },
+    'auth.password'(value) {
+      return Validator.value(value).required()
+    },
+  },
   methods: {
-    register() {
-      this.$nuxt.$loading.start()
-      const that = this
-      this.$fire.auth
-        .createUserWithEmailAndPassword(this.auth.email, this.auth.password)
-        .then((userCredential) => {
-          // Signed in
-          setTimeout(() => {
-            that.$fire.auth.currentUser.sendEmailVerification().then(() => {
-              // Email verification sent!
-              that.$nuxt.$loading.finish()
-              that.$router.push('/')
+    register(event) {
+      event.preventDefault()
+      this.$validate().then((success) => {
+        if (success) {
+          this.$nuxt.$loading.start()
+          const that = this
+          this.$fire.auth
+            .createUserWithEmailAndPassword(this.auth.email, this.auth.password)
+            .then((userCredential) => {
+              // Signed in
+              setTimeout(() => {
+                that.$fire.auth.currentUser.sendEmailVerification().then(() => {
+                  // Email verification sent!
+                  that.$toast.success('Registered, you must verify the email')
+                  that.$nuxt.$loading.finish()
+                  that.$router.push('/')
+                })
+              }, 300)
             })
-          }, 300)
-        })
-        .catch((error) => {
-          that.snackbarText = error.message
-          that.snackbar = true
-          // ..
-        })
+            .catch((error) => {
+              that.snackbarText = error.message
+              that.snackbar = true
+              // ..
+            })
+        }
+      })
     },
   },
 }

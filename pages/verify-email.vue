@@ -19,16 +19,27 @@
                       I have already verified
                     </a>
                   </div>
-                  <form action="sign-in.html" class="mt-4 form-text">
+                  <form class="mt-4 form-text needs-validation was-validated">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
                       <input
                         type="email"
-                        class="form-control mb-0"
+                        class="form-control"
+                        :class="{
+                          'not-valid': validation.hasError('auth.email'),
+                        }"
                         id="exampleInputEmail1"
                         placeholder="Enter email"
+                        label="Password"
+                        name="email"
                         v-model="auth.email"
                       />
+                      <div
+                        v-if="validation.hasError('auth.email')"
+                        class="invalid-feedback"
+                      >
+                        Email is {{ validation.firstError('auth.email') }}
+                      </div>
                     </div>
                     <div class="d-inline-block w-100">
                       <button
@@ -76,6 +87,7 @@
 </template>
 
 <script>
+import { Validator } from 'simple-vue-validator'
 export default {
   layout: 'empty',
   data() {
@@ -88,23 +100,34 @@ export default {
       },
     }
   },
+  validators: {
+    'auth.email'(value) {
+      return Validator.value(value).required().email()
+    },
+  },
   methods: {
-    sentVerify() {
-      this.$nuxt.$loading.start()
-      const that = this
-      this.$fire.auth.currentUser
-        .sendEmailVerification()
-        .catch(function (error) {
-          that.snackbarText = error.message
-          that.snackbar = true
-        })
-        .then(() => {
-          //we are signed in
-          setTimeout(() => {
-            that.$nuxt.$loading.finish()
-            that.emailSent = true
-          }, 300)
-        })
+    sentVerify(event) {
+      event.preventDefault()
+      this.$validate().then((success) => {
+        if (success) {
+          this.$nuxt.$loading.start()
+          const that = this
+          this.$fire.auth.currentUser
+            .sendEmailVerification()
+            .catch(function (error) {
+              that.snackbarText = error.message
+              that.snackbar = true
+            })
+            .then(() => {
+              //we are signed in
+              setTimeout(() => {
+                that.$nuxt.$loading.finish()
+                that.emailSent = true
+                that.$toast.success('Mail sent successfully')
+              }, 300)
+            })
+        }
+      })
     },
   },
 }

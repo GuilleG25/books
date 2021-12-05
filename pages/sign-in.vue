@@ -116,7 +116,7 @@ export default {
   },
   validators: {
     'auth.email'(value) {
-      return Validator.value(value).required()
+      return Validator.value(value).required().email()
     },
     'auth.password'(value) {
       return Validator.value(value).required()
