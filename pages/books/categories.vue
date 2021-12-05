@@ -266,6 +266,7 @@ export default {
             .update(this.categoryId, this.category)
             .then(() => {
               that.$nuxt.$loading.finish()
+              that.getAll()
               that.$toast.success('Update category')
             })
             .catch((error) => {
