@@ -216,7 +216,7 @@ export default {
       })
     },
     reset() {
-      this.author = {
+      this.book = {
         name: '',
         photo: '',
         category: '',
