@@ -31,4 +31,4 @@ $ yarn generate
 - Firestore
 - Template Booksto basado en boostraps 4
 - Element UI
-- Vercel (Servidor de despliegue de la aplicacion)
+- Vercel
