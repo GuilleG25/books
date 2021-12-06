@@ -105,14 +105,18 @@
                 <h4 class="card-title mb-0">Browse Books</h4>
               </div>
               <div class="iq-card-header-toolbar d-flex align-items-center">
-                <a href="category.html" class="btn btn-sm btn-primary view-more"
-                  >View More</a
+                <nuxt-link to="/search" class="btn btn-sm btn-primary view-more"
+                  >View More</nuxt-link
                 >
               </div>
             </div>
             <div class="iq-card-body">
               <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-3">
+                <div
+                  v-for="(item, index) in books.slice(0, 9)"
+                  :key="index"
+                  class="col-sm-6 col-md-4 col-lg-3"
+                >
                   <div
                     class="iq-card iq-card-block iq-card-stretch iq-card-height browse-bookcontent"
                   >
@@ -124,127 +128,20 @@
                           <a href="javascript:void();"
                             ><img
                               class="img-fluid rounded w-100"
-                              src="images/browse-books/01.jpg"
+                              :src="item.photo"
                               alt=""
                           /></a>
                           <div class="view-book">
-                            <a
-                              href="book-page.html"
-                              class="btn btn-sm btn-white"
+                            <a href="#" class="btn btn-sm btn-white"
                               >View Book</a
                             >
                           </div>
                         </div>
                         <div class="col-6">
                           <div class="mb-2">
-                            <h6 class="mb-1">Reading on the World</h6>
+                            <h6 class="mb-1">{{ item.name }}</h6>
                             <p class="font-size-13 line-height mb-1">
-                              Jhone Steben
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                  <div
-                    class="iq-card iq-card-block iq-card-stretch iq-card-height browse-bookcontent"
-                  >
-                    <div class="iq-card-body p-0">
-                      <div class="d-flex align-items-center">
-                        <div
-                          class="col-6 p-0 position-relative image-overlap-shadow"
-                        >
-                          <a href="javascript:void();"
-                            ><img
-                              class="img-fluid rounded w-100"
-                              src="images/browse-books/01.jpg"
-                              alt=""
-                          /></a>
-                          <div class="view-book">
-                            <a
-                              href="book-page.html"
-                              class="btn btn-sm btn-white"
-                              >View Book</a
-                            >
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="mb-2">
-                            <h6 class="mb-1">Reading on the World</h6>
-                            <p class="font-size-13 line-height mb-1">
-                              Jhone Steben
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                  <div
-                    class="iq-card iq-card-block iq-card-stretch iq-card-height browse-bookcontent"
-                  >
-                    <div class="iq-card-body p-0">
-                      <div class="d-flex align-items-center">
-                        <div
-                          class="col-6 p-0 position-relative image-overlap-shadow"
-                        >
-                          <a href="javascript:void();"
-                            ><img
-                              class="img-fluid rounded w-100"
-                              src="images/browse-books/01.jpg"
-                              alt=""
-                          /></a>
-                          <div class="view-book">
-                            <a
-                              href="book-page.html"
-                              class="btn btn-sm btn-white"
-                              >View Book</a
-                            >
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="mb-2">
-                            <h6 class="mb-1">Reading on the World</h6>
-                            <p class="font-size-13 line-height mb-1">
-                              Jhone Steben
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                  <div
-                    class="iq-card iq-card-block iq-card-stretch iq-card-height browse-bookcontent"
-                  >
-                    <div class="iq-card-body p-0">
-                      <div class="d-flex align-items-center">
-                        <div
-                          class="col-6 p-0 position-relative image-overlap-shadow"
-                        >
-                          <a href="javascript:void();"
-                            ><img
-                              class="img-fluid rounded w-100"
-                              src="images/browse-books/01.jpg"
-                              alt=""
-                          /></a>
-                          <div class="view-book">
-                            <a
-                              href="book-page.html"
-                              class="btn btn-sm btn-white"
-                              >View Book</a
-                            >
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="mb-2">
-                            <h6 class="mb-1">Reading on the World</h6>
-                            <p class="font-size-13 line-height mb-1">
-                              Jhone Steben
+                              {{ item.author.name }}
                             </p>
                           </div>
                         </div>
@@ -265,19 +162,23 @@
                 <h4 class="card-title mb-0">Favorite Reads</h4>
               </div>
               <div class="iq-card-header-toolbar d-flex align-items-center">
-                <a href="category.html" class="btn btn-sm btn-primary view-more"
-                  >View More</a
+                <nuxt-link to="/search" class="btn btn-sm btn-primary view-more"
+                  >View More</nuxt-link
                 >
               </div>
             </div>
             <div class="iq-card-body favorites-contens">
               <ul id="favorites-slider" class="list-inline p-0 mb-0 row">
-                <li class="col-md-4">
+                <li
+                  v-for="(item, index) in books.slice(0, 9)"
+                  :key="index"
+                  class="col-md-4"
+                >
                   <div class="d-flex align-items-center">
                     <div class="col-5 p-0 position-relative">
                       <a href="javascript:void();">
                         <img
-                          src="images/favorite/01.jpg"
+                          :src="item.photo"
                           class="img-fluid rounded w-100"
                           alt=""
                         />
@@ -285,75 +186,9 @@
                     </div>
                     <div class="col-7">
                       <h5 class="mb-2">
-                        Every Book is a new Wonderful Travel..
+                        {{ item.name }}
                       </h5>
-                      <p class="mb-2">Author : Pedro Araez</p>
-                      <div
-                        class="d-flex justify-content-between align-items-center text-dark font-size-13"
-                      ></div>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-md-4">
-                  <div class="d-flex align-items-center">
-                    <div class="col-5 p-0 position-relative">
-                      <a href="javascript:void();">
-                        <img
-                          src="images/favorite/01.jpg"
-                          class="img-fluid rounded w-100"
-                          alt=""
-                        />
-                      </a>
-                    </div>
-                    <div class="col-7">
-                      <h5 class="mb-2">
-                        Every Book is a new Wonderful Travel..
-                      </h5>
-                      <p class="mb-2">Author : Pedro Araez</p>
-                      <div
-                        class="d-flex justify-content-between align-items-center text-dark font-size-13"
-                      ></div>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-md-4">
-                  <div class="d-flex align-items-center">
-                    <div class="col-5 p-0 position-relative">
-                      <a href="javascript:void();">
-                        <img
-                          src="images/favorite/01.jpg"
-                          class="img-fluid rounded w-100"
-                          alt=""
-                        />
-                      </a>
-                    </div>
-                    <div class="col-7">
-                      <h5 class="mb-2">
-                        Every Book is a new Wonderful Travel..
-                      </h5>
-                      <p class="mb-2">Author : Pedro Araez</p>
-                      <div
-                        class="d-flex justify-content-between align-items-center text-dark font-size-13"
-                      ></div>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-md-4">
-                  <div class="d-flex align-items-center">
-                    <div class="col-5 p-0 position-relative">
-                      <a href="javascript:void();">
-                        <img
-                          src="images/favorite/01.jpg"
-                          class="img-fluid rounded w-100"
-                          alt=""
-                        />
-                      </a>
-                    </div>
-                    <div class="col-7">
-                      <h5 class="mb-2">
-                        Every Book is a new Wonderful Travel..
-                      </h5>
-                      <p class="mb-2">Author : Pedro Araez</p>
+                      <p class="mb-2">Author : {{ item.author.name }}</p>
                       <div
                         class="d-flex justify-content-between align-items-center text-dark font-size-13"
                       ></div>
@@ -371,6 +206,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      books: [],
+    }
+  },
   mounted() {
     jQuery('.slick-slider').slick({
       centerMode: true,
@@ -539,6 +379,21 @@ export default {
         },
       ],
     })
+
+    this.getAllBooks()
+  },
+  methods: {
+    async getAllBooks() {
+      const that = this
+      this.$books
+        .getAll()
+        .then((books) => {
+          that.books = books
+        })
+        .catch((error) => {
+          console.error('Error getAll: ', error)
+        })
+    },
   },
 }
 </script>

@@ -10,7 +10,9 @@
                   <i class="ri-user-line"></i>
                 </div>
                 <div class="text-left ml-3">
-                  <h2 class="mb-0"><span class="counter">5000</span></h2>
+                  <h2 class="mb-0">
+                    <span class="counter">{{ authors }}</span>
+                  </h2>
                   <h5 class="">Authors</h5>
                 </div>
               </div>
@@ -25,7 +27,9 @@
                   <i class="ri-book-line"></i>
                 </div>
                 <div class="text-left ml-3">
-                  <h2 class="mb-0"><span class="counter">4.8</span>k</h2>
+                  <h2 class="mb-0">
+                    <span class="counter">{{ booksCount }}</span>
+                  </h2>
                   <h5 class="">Books</h5>
                 </div>
               </div>
@@ -40,7 +44,9 @@
                   <i class="ri-computer-line"></i>
                 </div>
                 <div class="text-left ml-3">
-                  <h2 class="mb-0"><span class="counter">1.2</span>k</h2>
+                  <h2 class="mb-0">
+                    <span class="counter">{{ categories }}</span>
+                  </h2>
                   <h5 class="">Categories</h5>
                 </div>
               </div>
@@ -90,66 +96,30 @@
                 <table class="table mb-0 table-borderless">
                   <thead>
                     <tr>
-                      <th scope="col">Client</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Invoice</th>
-                      <th scope="col">Amount</th>
-                      <th scope="col">atatus</th>
-                      <th scope="col">Action</th>
+                      <th style="width: 12%">Book Image</th>
+                      <th style="width: 15%">Book Name</th>
+                      <th style="width: 15%">Book Category</th>
+                      <th style="width: 15%">Book Author</th>
+                      <th style="width: 18%">Book Description</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Ira Membrit</td>
-                      <td>18/10/2019</td>
-                      <td>20156</td>
-                      <td>$1500</td>
+                    <tr v-for="(item, index) in books.slice(0, 9)" :key="index">
                       <td>
-                        <div class="badge badge-pill badge-success">Paid</div>
+                        <img
+                          class="img-fluid rounded"
+                          :src="item.photo"
+                          alt=""
+                        />
                       </td>
-                      <td>Copy</td>
-                    </tr>
-                    <tr>
-                      <td>Pete Sariya</td>
-                      <td>26/10/2019</td>
-                      <td>7859</td>
-                      <td>$2000</td>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.category.name }}</td>
+                      <td>{{ item.author.name }}</td>
                       <td>
-                        <div class="badge badge-pill badge-success">Paid</div>
+                        <p class="mb-0">
+                          {{ item.description }}
+                        </p>
                       </td>
-                      <td>Send Email</td>
-                    </tr>
-                    <tr>
-                      <td>Cliff Hanger</td>
-                      <td>18/11/2019</td>
-                      <td>6396</td>
-                      <td>$2500</td>
-                      <td>
-                        <div class="badge badge-pill badge-danger">
-                          Past Due
-                        </div>
-                      </td>
-                      <td>Before Due</td>
-                    </tr>
-                    <tr>
-                      <td>Terry Aki</td>
-                      <td>14/12/2019</td>
-                      <td>7854</td>
-                      <td>$5000</td>
-                      <td>
-                        <div class="badge badge-pill badge-success">Paid</div>
-                      </td>
-                      <td>Copy</td>
-                    </tr>
-                    <tr>
-                      <td>Anna Mull</td>
-                      <td>24/12/2019</td>
-                      <td>568569</td>
-                      <td>$10000</td>
-                      <td>
-                        <div class="badge badge-pill badge-success">Paid</div>
-                      </td>
-                      <td>Send Email</td>
                     </tr>
                   </tbody>
                 </table>
@@ -163,7 +133,57 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      authors: 0,
+      categories: 0,
+      booksCount: 0,
+      books: [],
+    }
+  },
+  mounted() {
+    this.getAllAuthors()
+    this.getAllCategories()
+    this.getAllBooks()
+  },
+  methods: {
+    async getAllAuthors() {
+      const that = this
+      this.$authors
+        .getAll()
+        .then((authors) => {
+          that.authors = authors.length
+        })
+        .catch((error) => {
+          console.error('Error getAll: ', error)
+        })
+    },
+    async getAllCategories() {
+      const that = this
+      this.$categories
+        .getAll()
+        .then((categories) => {
+          that.categories = categories.length
+        })
+        .catch((error) => {
+          console.error('Error getAll: ', error)
+        })
+    },
+    async getAllBooks() {
+      const that = this
+      this.$books
+        .getAll()
+        .then((books) => {
+          that.booksCount = books.length
+          that.books = books
+        })
+        .catch((error) => {
+          console.error('Error getAll: ', error)
+        })
+    },
+  },
+}
 </script>
 
 <style></style>
