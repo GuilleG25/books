@@ -141,15 +141,13 @@ export default {
       categories: [],
       book: {
         name: '',
+        name_lowercase: '',
         photo: '',
         category: '',
         author: '',
         description: '',
       },
     }
-  },
-  mounted() {
-    this.getAll()
   },
   validators: {
     'book.name'(value) {
@@ -171,6 +169,11 @@ export default {
   mounted() {
     this.getAllAuthors()
     this.getAllCategories()
+  },
+  watch: {
+    'book.name': function (val) {
+      this.book.name_lowercase = this.book.name.toLowerCase()
+    },
   },
   methods: {
     async getAllAuthors() {
@@ -218,6 +221,7 @@ export default {
     reset() {
       this.book = {
         name: '',
+        name_lowercase: '',
         photo: '',
         category: {},
         author: {},

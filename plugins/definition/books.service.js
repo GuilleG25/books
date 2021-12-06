@@ -29,4 +29,29 @@ export class bookservice {
     const snapshot = await db.collection('books').doc(id).update(data)
     return snapshot
   }
+  async search(query) {
+    const db = this.$fire.firestore
+    // reverse term
+    const termR = query.split('').reverse().join('')
+    // define queries
+    const name = db
+      .collection('books')
+      .orderBy('name_lowercase')
+      .startAt(query.toLowerCase())
+      .endAt(query.toLowerCase() + '~')
+      .get()
+    const nameR = db
+      .collection('books')
+      .orderBy('name_lowercase')
+      .startAt(termR.toLowerCase())
+      .endAt(termR.toLowerCase() + '~')
+      .get()
+
+    // get queries
+    const [nameSnap, nameRSnap] = await Promise.all([name, nameR])
+    // return titleSnap.docs.concat(titlesRSnap.docs)
+    return nameSnap.docs.concat(nameRSnap.docs).map((doc) => {
+      return { ...{ id: doc.id }, ...doc.data() }
+    })
+  }
 }

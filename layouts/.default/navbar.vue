@@ -20,13 +20,16 @@
           </div>
         </div>
         <div class="iq-search-bar">
-          <form action="#" class="searchbox">
+          <form v-on:submit.prevent="search" class="searchbox">
             <input
               type="text"
               class="text search-input"
               placeholder="Search Here..."
+              v-model="query"
             />
-            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+            <a @click="search" class="search-link"
+              ><i class="ri-search-line"></i
+            ></a>
           </form>
         </div>
         <button
@@ -200,12 +203,26 @@
 </template>
 <script>
 export default {
-  mounted() {
-    console.log(this.$fire.auth.currentUser)
+  data() {
+    return {
+      query: '',
+    }
   },
+  mounted() {},
   methods: {
     logout() {
       this.$fire.auth.signOut()
+    },
+    search() {
+      if (this.query !== '') {
+        this.$nuxt.$loading.start()
+        setTimeout(() => {
+          this.$nuxt.$loading.finish()
+          this.$router.push('/search?query=' + this.query)
+        }, 300)
+      } else {
+        this.$toast.warning('you must enter a search')
+      }
     },
   },
 }

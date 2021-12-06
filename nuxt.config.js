@@ -117,14 +117,13 @@ export default {
       '@nuxtjs/firebase',
       {
         config: {
-          apiKey: 'AIzaSyAE37kRYAppsWbh_x91BaccxaQkus1yr2o',
-          authDomain: 'books-8e212.firebaseapp.com',
-          projectId: 'books-8e212',
-          storageBucket: 'books-8e212.appspot.com',
-          messagingSenderId: '199555402833',
-          appId: '1:199555402833:web:cd5842cf5d987c5b9cbc70',
-          databaseURL:
-            'https://books-8e212-default-rtdb.europe-west1.firebasedatabase.app',
+          apiKey: process.env.API_KEY,
+          authDomain: process.env.AUTH_DOMAIN,
+          projectId: process.env.PROJECT_ID,
+          storageBucket: process.env.STORAGE_BUCKET,
+          messagingSenderId: process.env.MESSAGING,
+          appId: process.env.APP_ID,
+          databaseURL: process.env.DATABASE_URL,
         },
         services: {
           auth: {
